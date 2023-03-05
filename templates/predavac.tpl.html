@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Predavac</h1>
+    {%if izmena == "false" %}
+    <form action="/predavac/dodavanje" method="post">
+    {% else %}
+    <form action="/predavac/izmeni" method="post">
+    {% endif %}
+        {% if izmena == "true" or prikaz == "true" %}
+        <div>
+            <label> ID: <input type="number" name="id" value = {{predavac.id}} readonly></label>
+        </div>
+        {% endif %}    
+        <div>
+            <label>Ime: <input type="text" name="ime" required {%if izmena == "true" or prikaz == "true" %} value={{predavac.ime}} {% if prikaz == "true" %} readonly {% endif %} {% endif %}></label>
+        </div>
+        <div>
+            <label>Prezime: <input type="text" name="prezime" required {%if izmena == "true" or prikaz == "true" %} value={{predavac.prezime}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+        <div>
+            <label>Zvanje: <input type="text" name="zvanje" required {%if izmena == "true" or prikaz == "true" %} value={{predavac.zvanje}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+
+        <input type="submit" {%if izmena == "false" %} value="Dodaj Predavaca" {%else%} value = "Izmeni Predavaca" {%endif%} {% if prikaz == "true" %} hidden {% endif %} >
+    </form>
+
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ucionica</h1>
+    {%if izmena == "false" %}
+    <form action="/ucionica/dodavanje" method="post">
+    {% else %}
+    <form action="/ucionica/izmeni" method="post">
+    {% endif %}
+        {% if izmena == "true" or prikaz == "true" %}
+        <div>
+            <label> ID: <input type="number" name="id" value = {{ucionica.id}} readonly></label>
+        </div>
+        {% endif %}    
+        <div>
+            <label>Naziv: <input type="text" name="naziv" required {%if izmena == "true" or prikaz == "true" %} value={{ucionica.naziv}} {% if prikaz == "true" %} readonly {% endif %} {% endif %}></label>
+        </div>
+        <div>
+            <label>Kapacitet: <input type="number" name="kapacitet" required {%if izmena == "true" or prikaz == "true" %} value={{ucionica.kapacitet}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+
+        <input type="submit" {%if izmena == "false" %} value="Dodaj Ucionicu" {%else%} value = "Izmeni ucionicu" {%endif%} {% if prikaz == "true" %} hidden {% endif %} >
+    </form>
+
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Predavac</h1>
+    {%if izmena == "false" %}
+    <form action="/rezervacija/dodavanje" method="post">
+    {% else %}
+    <form action="/rezervacija/izmeni" method="post">
+    {% endif %}
+        {% if izmena == "true" or prikaz == "true" %}
+        <div>
+            <label> ID: <input type="number" name="id" value = {{rezervacija.id}} readonly></label>
+        </div>
+        {% endif %}    
+        <div>
+            <label>Naziv: <input type="text" name="naziv" required {%if izmena == "true" or prikaz == "true" %} value={{rezervacija.naziv}} {% if prikaz == "true" %} readonly {% endif %} {% endif %}></label>
+        </div>
+        <div>
+            <label>Pocetak: <input type="datetime" name="pocetak" required {%if izmena == "true" or prikaz == "true" %} value={{rezervacija.pocetak}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+        <div>
+            <label>Kraj: <input type="datetime" name="kraj" required {%if izmena == "true" or prikaz == "true" %} value={{rezervacija.kraj}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+        <div>
+            <label>Broj ucesnika: <input type="number" name="brojUcesnika" required {%if izmena == "true" or prikaz == "true" %} value={{rezervacija.brojUcesnika}} {% if prikaz == "true" %} readonly {% endif %} {% endif %} ></label>
+        </div>
+        <div>
+            <label> Ucionica: 
+            <select name="ucionica_id" >
+                {% for u in ucionice %}
+                <option value="{{u.id}}" {% if izmena == "true" %} selected = {{rezervacija.ucionica}} {%endif%} >{{u.naziv}}</option>
+                {% endfor %}
+                {% if prikaz == "true" %} <option disabled selected = {{rezervacija.ucionica}} > {{rezervacija.ucionica}} </option> {%endif%}
+            </select>
+            </label>
+        </div>
+        
+        <div>
+            <label> Predavac: 
+            <select name="predavac_id" >
+                {% for p in predavaci %}
+                <option value="{{p.id}}" {% if izmena == "true" %} selected = {{rezervacija.predavac}} {%endif%}>{{p.ime + " " + p.prezime}}</option>
+                {% endfor %}
+                {% if prikaz == "true" %} <option disabled selected = {{rezervacija.predavac}} > {{rezervacija.predavac}} </option> {%endif%}
+            </select>
+            </label>
+        </div>  
+
+
+        <input type="submit" {%if izmena == "false" %} value="Dodaj Rezervaciju" {%else%} value = "Izmeni Rezervaciju" {%endif%} {% if prikaz == "true" %} hidden {% endif %} >
+    </form>
+
+    
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="/">Meni</a>
+
+    {% if tip == 'Ucionice' %}
+    <h1>Ucionice</h1>
+    <a href="/ucionica/dodaj">Dodaj</a>
+
+    {% elif tip == 'Predavaci' %}
+    <h1>Predavaci</h1>
+    <a href="/predavac/dodaj">Dodaj</a>
+
+    {% else %}
+    <h1>Rezervacije</h1>
+    <a href="/rezervacija/dodaj">Dodaj</a>
+    {% endif %}
+    <table>
+        <thead>
+            {% if tip == 'Ucionice' %}
+            <tr>
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Kapacitet</th>
+                <th>Operacije</th>
+            </tr>
+            {% elif tip == "Predavaci" %}
+            <tr>
+                <th>ID</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Zvanje</th>
+                <th>Operacije</th>
+            </tr>
+            {% else %}
+            <tr>
+                <th>ID</th>
+                <th>Naziv</th>
+                <th>Pocetak</th>
+                <th>Kraj</th>
+                <th>Broj ucesnika</th>
+                <th>Ucionica</th>
+                <th>predavac</th>
+                <th>Operacije</th>
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% if tip == 'Ucionice' %}
+            {% for u in ucionice %}
+            <tr>
+                <td>{{u.id}}</td>
+                <td>{{u.naziv}}</td>
+                <td>{{u.kapacitet}}</td>
+                <td>
+                    <a href="/ucionica/{{u.id}}">Detalji</a>
+                    <a href="/ucionica/{{u.id}}/izmena">Izmeni</a>
+                    <a href="/ucionica/{{u.id}}/obrisi">Ukloni</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% elif tip == 'Predavaci' %}
+            {% for p in predavaci %}
+            <tr>
+                <td>{{p.id}}</td>
+                <td>{{p.ime}}</td>
+                <td>{{p.prezime}}</td>
+                <td>{{p.zvanje}}</td>
+                <td>
+                    <a href="/predavac/{{p.id}}">Detalji</a>
+                    <a href="/predavac/{{p.id}}/izmena">Izmeni</a>
+                    <a href="/predavac/{{p.id}}/obrisi">Ukloni</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            {% for r in rezervacije %}
+            <tr>
+                <td>{{r.id}}</td>
+                <td>{{r.naziv}}</td>
+                <td>{{r.pocetak}}</td>
+                <td>{{r.kraj}}</td>
+                <td>{{r.brojUcesnika}}</td>
+                <td>{{r.ucionica}}</td>
+                <td>{{r.predavac}}</td>
+                <td>
+                    <a href="/rezervacija/{{r.id}}">Detalji</a>
+                    <a href="/rezervacija/{{r.id}}/izmena">Izmeni</a>
+                    <a href="/rezervacija/{{r.id}}/obrisi">Ukloni</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
+</html>
